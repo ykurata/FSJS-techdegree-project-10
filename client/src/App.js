@@ -15,24 +15,12 @@ class App extends Component {
     this.getCourses();
   }
 
-  // getCourses = () => {
-  //   fetch('/api/courses')
-  //   .then(res => res.json())
-  //   .then(listData => {
-  //     this.setState({ list: listData });
-  //   })
-  // }
-
   getCourses = () => {
-    axios.get('/api/courses')
-      .then(response => {
-        this.setState({
-          list: response.data
-        });
-      })
-      .catch(error => {
-        console.log("Error fetching and parsing data", error);
-      });
+    fetch('/api/courses')
+    .then(res => res.json())
+    .then(listData => {
+      this.setState({ list: listData });
+    })
   }
 
   render() {
