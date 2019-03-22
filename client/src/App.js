@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
 
+// App components
+import Courses from './components/Courses';
+
 class App extends Component {
   // Initialize the state
   constructor(props) {
@@ -28,29 +31,9 @@ class App extends Component {
   }
 
   render() {
-    const { list } = this.state;
-
     return (
-      <div className="App">
-        <h1>List of Items</h1>
-        {/* Check to see if any items are found*/}
-        {list.length ? (
-          <div>
-            {/* Render the list of items */}
-            {list.map((item, id) => {
-              return(
-                <div key={id}>
-                  {item.title}
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <div>
-            <h2>No List Items Found</h2>
-          </div>
-        )
-      }
+      <div className="bound">
+        <Courses data={this.state.list} />
       </div>
     );
   }
