@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import './App.css';
+// import './App.css';
 
 // App components
+import Header from './components/Header';
 import Courses from './components/Courses';
 
 class App extends Component {
@@ -32,8 +33,11 @@ class App extends Component {
 
   render() {
     return (
-      <div className="bound">
-        <Courses data={this.state.list} />
+      <div>
+        <Header />
+        <div className="bounds">
+          <Courses data={this.state.list} />
+        </div>
       </div>
     );
   }
