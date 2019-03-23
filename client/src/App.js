@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
+import  {
+  BrowserRouter,
+  Route,
+  Switch,
+} from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
 
-// app components
+// App components
 import Courses from './components/Courses';
 import Header from './components/Header';
+import SignIn from './components/SignIn';
 
 
 class App extends Component {
@@ -41,12 +47,15 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <Header />
-        <div className="bounds">
-          <Courses data={this.state.list} />
+      <BrowserRouter>
+        <div>
+          <Header />
+          <Route path='/signin' component={SignIn}/>
+          <div className="bounds">
+            <Courses data={this.state.list} />
+          </div>
         </div>
-      </div>
+      </BrowserRouter>
     );
   }
 }
