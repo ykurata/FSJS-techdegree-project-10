@@ -7,7 +7,7 @@ const Header = () => {
       <div className="bounds">
         <h1 className="header--logo">Courses</h1>
         <nav>
-          <NavLink to='/signup' className="signup" href="sign-up.html">Sign Up</NavLink>
+          <NavLink to='/signup' className="signup">Sign Up</NavLink>
           <NavLink to='/signin' className="signin">Sign In</NavLink>
         </nav>
       </div>

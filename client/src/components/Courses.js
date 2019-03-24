@@ -7,10 +7,12 @@ const Courses = props => {
   if (list.length) {
     course = list.map((course) => {
       return (
-        <a className="course--module course--link" href="course-detail.html" key={course._id}>
-            <h4 className="course--label">Course</h4>
-            <h3 className="course--title">{course.title}</h3>
-        </a>
+        <div className="grid-33" key={course._id}>
+          <a className="course--module course--link" href="course-detail.html">
+              <h4 className="course--label">Course</h4>
+              <h3 className="course--title">{course.title}</h3>
+          </a>
+        </div>
       );
     });
   } else {
@@ -18,7 +20,7 @@ const Courses = props => {
   }
 
   return (
-    <div className="grid-33">
+    <div className="bounds">
       {course}
     </div>
   );

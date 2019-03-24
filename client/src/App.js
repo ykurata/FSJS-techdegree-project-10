@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import  {
   BrowserRouter,
   Route,
-  Switch,
+
 } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
@@ -11,6 +11,7 @@ import './App.css';
 import Courses from './components/Courses';
 import Header from './components/Header';
 import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
 
 
 class App extends Component {
@@ -50,10 +51,9 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Header />
+          <Route exact path='/' render={ () => <Courses data={this.state.list} />} />
           <Route path='/signin' component={SignIn}/>
-          <div className="bounds">
-            <Courses data={this.state.list} />
-          </div>
+          <Route path='/signup' component={SignUp}/>
         </div>
       </BrowserRouter>
     );
