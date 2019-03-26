@@ -1,25 +1,28 @@
-import React from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 
-class CourseDetail extends Components {
+import { NavLink } from 'react-router-dom';
 
-  constructor(prop) {
-    super();
+class CourseDetail extends Component {
+
+  constructor(props) {
+    super(props);
+
     this.state = {
-      course: ""
+      course: {}
     }
   }
 
-  componentDidMount() {
+  componentDidMount(){
     this.getCourse();
   }
 
   getCourse = () => {
-    axios.get(`/api/course/${course._id}`)
+    axios.get('/api/courses/' + this.props.match.params.id)
       .then(response => {
-        this.state({
+        this.setState({
           course: response.data
-        })
+        });
       })
       .catch(error => {
         console.log("Error fetching and parsing data", error);
@@ -31,11 +34,46 @@ class CourseDetail extends Components {
       <div>
         <div className="actions--bar">
           <div className="bounds">
-            <div className="grid-100"><span><a className="button" href="update-course.html">Update Course</a><a class="button" href="#">Delete Course</a></span><a
-                className="button button-secondary" href="index.html">Return to List</a></div>
+            <div className="grid-100">
+              <span>
+                <NavLink to='' className="button" >Update Course</NavLink>
+                <NavLink ro='' className="button" >Delete Course</NavLink>
+              </span>
+              <NavLink to="/" className="button button-secondary">Return to List</NavLink>
+            </div>
+          </div>
+        </div>
+        <div className="bounds course--detail">
+          <div className="grid-66">
+            <div className="course--header">
+              <h4 className="course--label">Course</h4>
+              <h3 className="course--title">{this.state.course.title}</h3>
+              <p>{this.state.course.user}</p>
+            </div>
+            <div className="course--description">
+              <p>{this.state.course.description}</p>
+            </div>
+          </div>
+          <div className="grid-25 grid-right">
+            <div className="course--stats">
+              <ul className="course--stats--list">
+                <li className="course--stats--list--item">
+                  <h4>Estimated Time</h4>
+                  <h3>{this.state.course.estimatedTime}</h3>
+                </li>
+                <li className="course--stats--list--item">
+                  <h4>Materials Needed</h4>
+                    <ul>
+                      <li>{this.state.course.materialsNeeded}</li>
+                    </ul>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
+
+export default CourseDetail;

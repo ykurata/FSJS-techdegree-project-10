@@ -9,6 +9,8 @@ import './App.css';
 
 // App components
 import Courses from './components/Courses';
+import CourseDetail from './components/CourseDetail';
+import CreateCourse from './components/CreateCourse';
 import Header from './components/Header';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
@@ -52,6 +54,8 @@ class App extends Component {
         <div>
           <Header />
           <Route exact path='/' render={ () => <Courses data={this.state.list} />} />
+          <Route path='/courses/:id' component={CourseDetail} />
+          <Route path='/courses/create' component={CreateCourse} />
           <Route path='/signin' component={SignIn}/>
           <Route path='/signup' component={SignUp}/>
         </div>
