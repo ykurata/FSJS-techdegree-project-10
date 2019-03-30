@@ -21,31 +21,45 @@ class App extends Component {
   constructor(props) {
     super();
     this.state = {
-      list: []
+      emailAddress: '',
+      password : ''
     }
   }
 
-  componentDidMount(){
-    this.getCourses();
+  // componentDidMount(){
+  //   this.getUser();
+  //   axios.get('/api/users', { auth: {
+  //     "username": ,
+  //     "password": "password"
+  //   }})
+  //   .then(response => {
+  //     console.log(response.data);
+  //   })
+  //   .catch(error => {
+  //     console.log("Error fetching and parsing data", error);
+  //   });
+  // }
+
+  handleChange = (e) => {
+    this.setState({ [e.target.id] : e.target.value });
   }
 
-  // getCourses = () => {
-  //   fetch('/api/courses')
-  //   .then(res => res.json())
-  //   .then(listData => {
-  //     this.setState({ list: listData });
-  //   })
-  // }
-  getCourses = () => {
-    axios.get('/api/courses')
+
+  getUser = () => {
+    axios.get('/api/users', { auth: {
+      "username": this.state.emailAddress,
+      "password": this.state.password
+    }})
       .then(response => {
-        this.setState({
-          list: response.data
-        });
+        console.log(response.data);
       })
       .catch(error => {
         console.log("Error fetching and parsing data", error);
       });
+  }
+
+  componentDidMount() {
+    this.getUser();
   }
 
   render() {
@@ -53,10 +67,10 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Header />
-          <Route exact path='/' render={ () => <Courses data={this.state.list} />} />
+          <Route exact path='/' component={Courses} />
           <Route path='/courses/:id' component={CourseDetail} />
           <Route path='/courses/create' component={CreateCourse} />
-          <Route path='/signin' component={SignIn}/>
+          <Route path='/signin' component={SignIn} />
           <Route path='/signup' component={SignUp}/>
         </div>
       </BrowserRouter>

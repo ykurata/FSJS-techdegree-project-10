@@ -37,7 +37,7 @@ class CreateCourse extends Component {
       <div className="bounds course--detail">
         <h1>Create Course</h1>
         <div>
-          <div>
+          {/* <div>
             <h2 className="validation--errors--label">Validation errors</h2>
             <div className="validation-errors">
               <ul>
@@ -45,7 +45,7 @@ class CreateCourse extends Component {
                 <li>Please provide a value for "Description"</li>
               </ul>
             </div>
-          </div>
+          </div> */}
           <form onSubmit={this.onSubmit}>
             <div className="grid-66">
               <div className="course--header">
