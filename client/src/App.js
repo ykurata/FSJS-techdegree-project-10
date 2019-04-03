@@ -17,51 +17,6 @@ import SignUp from './components/SignUp';
 
 
 class App extends Component {
-  // Initialize the state
-  // constructor(props) {
-  //   super();
-  //   this.state = {
-  //     emailAddress: '',
-  //     password : ''
-  //   }
-  // }
-
-  // componentDidMount(){
-  //   this.getUser();
-  //   axios.get('/api/users', { auth: {
-  //     "username": ,
-  //     "password": "password"
-  //   }})
-  //   .then(response => {
-  //     console.log(response.data);
-  //   })
-  //   .catch(error => {
-  //     console.log("Error fetching and parsing data", error);
-  //   });
-  // }
-
-  // handleChange = (e) => {
-  //   this.setState({ [e.target.id] : e.target.value });
-  // }
-  //
-  //
-  // getUser = () => {
-  //   axios.get('/api/users', { auth: {
-  //     "username": this.state.emailAddress,
-  //     "password": this.state.password
-  //   }})
-  //     .then(response => {
-  //       console.log(response.data);
-  //     })
-  //     .catch(error => {
-  //       console.log("Error fetching and parsing data", error);
-  //     });
-  // }
-  //
-  // componentDidMount() {
-  //   this.getUser();
-  // }
-
   render() {
     return (
       <BrowserRouter>

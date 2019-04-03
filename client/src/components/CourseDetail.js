@@ -37,7 +37,7 @@ class CourseDetail extends Component {
             <div className="grid-100">
               <span>
                 <NavLink to='' className="button" >Update Course</NavLink>
-                <NavLink ro='' className="button" >Delete Course</NavLink>
+                <NavLink to='' className="button" >Delete Course</NavLink>
               </span>
               <NavLink to="/" className="button button-secondary">Return to List</NavLink>
             </div>
