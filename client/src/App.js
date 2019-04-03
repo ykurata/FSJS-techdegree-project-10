@@ -22,8 +22,34 @@ class App extends Component {
     super();
     this.state = {
       emailAddress: '',
-      password : ''
+      password: '',
+      loggedIn: false
     }
+  }
+
+  handleEmailChange = e => {
+    this.setState({ emailAddress: e.target.value });
+  }
+
+  handlePasswordChange = e => {
+    this.setState({ password: e.target.value });
+  }
+
+  handleSubmit = e => {
+    e.preventDefault();
+    const authHeader = {
+      username: this.state.emailAddress,
+      password: this.state.password
+    }
+    axios.get('/api/users', { auth: authHeader } )
+    .then(response => {
+      this.setState({ loggedIn: true });
+      console.log(response.data);
+      console.log("You logged in!");
+    })
+    .catch(error => {
+      console.log("Error fetching and parsing data", error);
+    });
   }
 
   // componentDidMount(){
@@ -40,27 +66,27 @@ class App extends Component {
   //   });
   // }
 
-  handleChange = (e) => {
-    this.setState({ [e.target.id] : e.target.value });
-  }
+  // handleChange = (e) => {
+  //   this.setState({ [e.target.id] : e.target.value });
+  // }
+  //
+  //
+  // getUser = () => {
+  //   axios.get('/api/users', { auth: {
+  //     "username": this.state.emailAddress,
+  //     "password": this.state.password
+  //   }})
+  //     .then(response => {
+  //       console.log(response.data);
+  //     })
+  //     .catch(error => {
+  //       console.log("Error fetching and parsing data", error);
+  //     });
+  // }
 
-
-  getUser = () => {
-    axios.get('/api/users', { auth: {
-      "username": this.state.emailAddress,
-      "password": this.state.password
-    }})
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.log("Error fetching and parsing data", error);
-      });
-  }
-
-  componentDidMount() {
-    this.getUser();
-  }
+  // componentDidMount() {
+  //   this.getUser();
+  // }
 
   render() {
     return (
@@ -70,7 +96,9 @@ class App extends Component {
           <Route exact path='/' component={Courses} />
           <Route path='/courses/:id' component={CourseDetail} />
           <Route path='/courses/create' component={CreateCourse} />
-          <Route path='/signin' component={SignIn} />
+          <Route path='/signin' render={() =>
+            <SignIn emailvalue={this.handleEmailChange} passwordvalue={this.handlePasswordChange} onSubmit={this.handleSubmit} />
+          }/>
           <Route path='/signup' component={SignUp}/>
         </div>
       </BrowserRouter>
