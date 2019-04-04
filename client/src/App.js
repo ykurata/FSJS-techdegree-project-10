@@ -15,8 +15,18 @@ import Header from './components/Header';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 
+const Auth = {
+  isAuthenticated: false,
+  authenticated(cb) {
+    this.isAuthenticated = true
+  },
+  signout(cb) {
+    this.isAuthenticated = false
+  }
+}
 
 class App extends Component {
+
   render() {
     return (
       <BrowserRouter>
