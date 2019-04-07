@@ -9,8 +9,6 @@ class SignIn extends Component {
     this.state = {
       emailAddress: '',
       password: '',
-      loggedIn: false,
-      username: ''
     }
   }
 
@@ -35,10 +33,8 @@ class SignIn extends Component {
         username: response.data.firstName
        });
       window.localStorage.setItem('user', response.data);
-      window.localStorage.getItem('user');
+      window.localStorage.setItem('username', response.data.firstName);
       window.location.href = '/';
-      console.log(this.state.username);
-      console.log("You logged in!");
     })
     .catch(error => {
       console.log("Error loggin please try again", error);
@@ -46,11 +42,6 @@ class SignIn extends Component {
   }
 
   render() {
-    // if (this.state.loggedIn) {
-    //   return (
-    //     <Redirect to='/' />
-    //   )
-    // }
     return (
       <div className="bounds">
         <div className="grid-33 centered signin">

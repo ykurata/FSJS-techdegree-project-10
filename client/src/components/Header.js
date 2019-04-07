@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
 
-const Header = (props) => {
-  if (props.user) {
+const Header = () => {
+  const username = window.localStorage.getItem('username');
+  if (username) {
     return (
       <div className="header">
         <div className="bounds">
           <h1 className="header--logo">Courses</h1>
-          <nav><span>Welcome {props.user.firstName}</span><NavLink className="signout" to='/signout'>Sign Out</NavLink></nav>
+          <nav><span>Welcome {username}</span><NavLink className="signout" to='/signout'>Sign Out</NavLink></nav>
         </div>
       </div>
     );

@@ -19,35 +19,15 @@ import PrivateRoute from './components/PrivateRoute';
 
 
 class App extends Component {
-  constructor(props) {
-    super();
-    this.state = {
-      user: {}
-    }
-  }
-
-  componentDidMount() {
-    this.setState({
-      user: window.localStorage.getItem('user'),
-    });
-  }
-
   render() {
-    // const { user } = this.state;
-    // const { from } = this.props.location.state || { from: { pathname: '/'} }
-    // const { signIn } = this.state
-    //
-    // if (signIn === true) {
-    //   return <Redirect to='/courses/create' />
-    // }
     return (
       <BrowserRouter>
         <div>
-          <Header user={this.state.user}/>
+          <Header />
           <Route exact path='/' component={Courses} />
           <Route path='/courses/:id' component={CourseDetail} />
           <PrivateRoute path='/courses/create' component={CreateCourse} />
-          <Route path='/signin' component={SignIn} />
+          <Route path='/signin' render={() => <SignIn onUsernameChange={this.onUsernameChange} />} />
           <Route path='/signup' component={SignUp}/>
           <Route path='/signout' component={SignOut}/>
         </div>
