@@ -9,7 +9,8 @@ class SignIn extends Component {
     this.state = {
       emailAddress: '',
       password: '',
-      loggedIn: false
+      loggedIn: false,
+      username: ''
     }
   }
 
@@ -29,21 +30,27 @@ class SignIn extends Component {
     }
     axios.get('/api/users', { auth: authHeader } )
     .then(response => {
-      this.setState({ loggedIn: true });
-      console.log(response.data);
+      this.setState({
+        loggedIn: true,
+        username: response.data.firstName
+       });
+      window.localStorage.setItem('user', response.data);
+      window.localStorage.getItem('user');
+      window.location.href = '/';
+      console.log(this.state.username);
       console.log("You logged in!");
     })
     .catch(error => {
-      console.log("Error fetching and parsing data", error);
+      console.log("Error loggin please try again", error);
     });
   }
 
   render() {
-    if (this.state.loggedIn) {
-      return (
-        <Redirect to='/' />
-      )
-    }
+    // if (this.state.loggedIn) {
+    //   return (
+    //     <Redirect to='/' />
+    //   )
+    // }
     return (
       <div className="bounds">
         <div className="grid-33 centered signin">
@@ -57,6 +64,7 @@ class SignIn extends Component {
                   type="text"
                   className=""
                   placeholder="Email Address"
+                  value={this.state.emailAddress}
                   onChange={this.handleEmailChange} />
               </div>
                 <div>
@@ -66,6 +74,7 @@ class SignIn extends Component {
                     type="password"
                     className=""
                     placeholder="Password"
+                    value={this.state.password}
                     onChange={this.handlePasswordChange}
                   />
               </div>
