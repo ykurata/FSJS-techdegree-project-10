@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import  {
   BrowserRouter,
-  Route,
-  Redirect
+  Route
 } from 'react-router-dom';
-import axios from 'axios';
 import './App.css';
 
-// App components
+// import components
 import Courses from './components/Courses';
 import CourseDetail from './components/CourseDetail';
 import CreateCourse from './components/CreateCourse';

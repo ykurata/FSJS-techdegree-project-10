@@ -1,10 +1,6 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-
-
 const SignOut = () => {
   window.localStorage.clear();
-  window.location.href = '/'
+  window.location.href = '/';
 }
 
 
