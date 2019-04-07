@@ -8,6 +8,7 @@ class SignIn extends Component {
     this.state = {
       emailAddress: '',
       password: '',
+      errorMessage: ''
     }
   }
 
@@ -19,8 +20,25 @@ class SignIn extends Component {
     this.setState({ password: e.target.value });
   }
 
+  validation = e => {
+    if (this.state.emailAddress === '') {
+      this.setState({
+        errorMessage: "Email Address is required"
+      });
+    } else if (this.state.password === '') {
+      this.setState({
+        errorMessage: "Password is required"
+      });
+    } else {
+      this.setState({
+        errorMessage: ''
+      })
+    }
+  }
+
   handleSubmit = e => {
     e.preventDefault();
+    this.validation();
     const authHeader = {
       username: this.state.emailAddress,
       password: this.state.password
@@ -30,12 +48,25 @@ class SignIn extends Component {
       this.setState({
         loggedIn: true,
         username: response.data.firstName
-       });
+      });
       window.localStorage.setItem('user', response.data);
       window.localStorage.setItem('username', response.data.firstName);
       window.location.href = '/';
     })
     .catch(error => {
+      if (this.state.emailAddress === "") {
+        this.setState({
+          errorMessage: "Email Address is required"
+        });
+      } else if (this.state.password === "") {
+        this.setState({
+          errorMessage: "Password is required"
+        });
+      } else {
+        this.setState({
+          errorMessage: "Incorrect Email Address or Password"
+        });
+      }
       console.log("Error loggin please try again", error);
     });
   }
@@ -47,6 +78,9 @@ class SignIn extends Component {
           <h1>Sign In</h1>
           <div>
             <form onSubmit={this.handleSubmit}>
+              <div>
+                {this.state.errorMessage}
+              </div>
               <div>
                 <input
                   id="emailAddress"
@@ -70,7 +104,7 @@ class SignIn extends Component {
               </div>
               <div className="grid-100 pad-bottom">
                 <button className="button" type="submit">Sign In</button>
-                <button className="button button-secondary" >Cancel</button>
+                <NavLink to='/'><button className="button button-secondary" >Cancel</button></NavLink>
               </div>
             </form>
           </div>
