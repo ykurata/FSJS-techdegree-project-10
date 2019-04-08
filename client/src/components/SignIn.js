@@ -50,7 +50,8 @@ class SignIn extends Component {
         username: response.data.firstName
       });
       window.localStorage.setItem('user', response.data);
-      window.localStorage.setItem('username', response.data.firstName);
+      window.localStorage.setItem('firstName', response.data.firstName);
+      window.localStorage.setItem('lastName', response.data.lastName);
       window.location.href = '/';
     })
     .catch(error => {

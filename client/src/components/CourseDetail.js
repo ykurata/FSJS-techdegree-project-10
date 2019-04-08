@@ -14,14 +14,10 @@ class CourseDetail extends Component {
   }
 
   componentDidMount(){
-    this.getCourse();
-  }
-
-  getCourse = () => {
-    axios.get('/api/courses/' + this.props.match.params.id)
+    axios.get(`/api/courses/${this.props.match.params.id}`)
       .then(response => {
         this.setState({
-          course: response.data
+          course: response.data,
         });
       })
       .catch(error => {
@@ -30,16 +26,21 @@ class CourseDetail extends Component {
   }
 
   render() {
+    const user = window.localStorage.getItem('user')
     return (
       <div>
         <div className="actions--bar">
           <div className="bounds">
             <div className="grid-100">
-              <span>
-                <NavLink to='' className="button" >Update Course</NavLink>
-                <NavLink to='' className="button" >Delete Course</NavLink>
-              </span>
-              <NavLink to="/" className="button button-secondary">Return to List</NavLink>
+              {
+                (user)
+                ? <span>
+                    <NavLink to='' className="button" >Update Course</NavLink>
+                    <NavLink to='' className="button" >Delete Course</NavLink>
+                    <NavLink to="/" className="button button-secondary">Return to List</NavLink>
+                  </span>
+                : <NavLink to="/" className="button button-secondary">Return to List</NavLink>
+              }
             </div>
           </div>
         </div>
@@ -48,7 +49,7 @@ class CourseDetail extends Component {
             <div className="course--header">
               <h4 className="course--label">Course</h4>
               <h3 className="course--title">{this.state.course.title}</h3>
-              <p>{this.state.course.user}</p>
+              <p className="user--name">By {this.state.course.user}</p>
             </div>
             <div className="course--description">
               <p>{this.state.course.description}</p>

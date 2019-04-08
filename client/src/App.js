@@ -23,7 +23,7 @@ class App extends Component {
         <div>
           <Header />
           <Route exact path='/' component={Courses} />
-          <Route path='/courses/:id' component={CourseDetail} />
+          <Route exact path='/courses/:id' component={CourseDetail} />
           <PrivateRoute path='/courses/create' component={CreateCourse} />
           <Route path='/signin' render={() => <SignIn onUsernameChange={this.onUsernameChange} />} />
           <Route path='/signup' component={SignUp}/>

@@ -3,13 +3,14 @@ import { NavLink } from 'react-router-dom';
 
 
 const Header = () => {
-  const username = window.localStorage.getItem('username');
-  if (username) {
+  const firstName = window.localStorage.getItem('firstName');
+  const lastName = window.localStorage.getItem('lastName');
+  if (firstName || lastName) {
     return (
       <div className="header">
         <div className="bounds">
           <h1 className="header--logo">Courses</h1>
-          <nav><span>Welcome {username}</span><NavLink className="signout" to='/signout'>Sign Out</NavLink></nav>
+          <nav><span>Welcome {firstName} {lastName}</span><NavLink className="signout" to='/signout'>Sign Out</NavLink></nav>
         </div>
       </div>
     );
