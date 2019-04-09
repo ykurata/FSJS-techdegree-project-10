@@ -11,7 +11,8 @@ class CreateCourse extends Component {
       title: '',
       description: '',
       estimatedTime: '',
-      materialsNeeded: ''
+      materialsNeeded: '',
+      errorMessage: []
     }
   }
 
@@ -19,6 +20,31 @@ class CreateCourse extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  onSubmit = e => {
+    e.preventDefault();
+    const { title, description, estimatedTime, materialsNeeded } = this.state;
+    axios.post('/api/courses/', { title, description, estimatedTime, materialsNeeded })
+    .then(response => {
+      console.log(response);
+      window.location.href = '/';
+    })
+    .catch(error => {
+      if (this.state.title === '') {
+        this.setState({
+          errorMessage: 'Please provide a value for "Title"'
+        });
+      } else if (this.state.description === '') {
+        this.setState({
+          errorMessage: 'Please provide a value for "Description"'
+        });
+      } else {
+        this.setState({
+          errorMessage: ''
+        });
+      }
+      console.log("There is an error", error);
+    });
+  }
 
   render() {
     const firstName = window.localStorage.getItem('firstName');
@@ -29,16 +55,19 @@ class CreateCourse extends Component {
       <div className="bounds course--detail">
         <h1>Create Course</h1>
         <div>
-          <div>
-            <h2 className="validation--errors--label">Validation errors</h2>
-            <div className="validation-errors">
-              <ul>
-                <li>Please provide a value for "Title"</li>
-                <li>Please provide a value for "Description"</li>
-              </ul>
-            </div>
-          </div>
-          <form >
+          {
+            (this.state.errorMessage.length)
+            ? <div>
+                <h2 className="validation--errors--label">Validation errors</h2>
+                <div className="validation-errors">
+                  <ul>
+                    <li>{this.state.errorMessage}</li>
+                  </ul>
+                </div>
+              </div>
+            : <div></div>
+          }
+          <form onSubmit={this.onSubmit}>
             <div className="grid-66">
               <div className="course--header">
                 <h4 className="course--label">Course</h4>

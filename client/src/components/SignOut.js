@@ -3,5 +3,4 @@ const SignOut = () => {
   window.location.href = '/';
 }
 
-
 export default SignOut;

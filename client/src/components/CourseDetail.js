@@ -9,7 +9,7 @@ class CourseDetail extends Component {
     super(props);
 
     this.state = {
-      course: {}
+      course: []
     }
   }
 

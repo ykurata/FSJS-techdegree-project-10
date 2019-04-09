@@ -48,7 +48,6 @@ app.get('/', (req, res) => {
 // setup CORS
 app.use(function(req, res, next){
   res.header("Access-Control-Allow-Origin", "*");
-  // res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   if (req.method === "OPTIONS") {
     res.header("Access-Control-Allow-Methods", "PUT,POST,DELETE");
@@ -57,10 +56,6 @@ app.use(function(req, res, next){
   next();
 });
 
-// ADD THIS
-// const cors = require('cors');
-// app.use(cors());
-// app.use(cors({ origin: 'http://localhost:3000' }))
 
 // setup api routes
 app.use('/api', routes);

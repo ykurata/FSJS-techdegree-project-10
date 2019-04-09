@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import  {
   BrowserRouter,
-  Route
+  Route,
+  Switch
 } from 'react-router-dom';
 import './App.css';
 
@@ -22,12 +23,16 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Header />
-          <Route exact path='/' component={Courses} />
-          <Route exact path='/courses/:id' component={CourseDetail} />
-          <PrivateRoute path='/courses/create' component={CreateCourse} />
-          <Route path='/signin' render={() => <SignIn onUsernameChange={this.onUsernameChange} />} />
-          <Route path='/signup' component={SignUp}/>
-          <Route path='/signout' component={SignOut}/>
+
+          <Switch>
+            <Route exact path='/' component={Courses} />
+
+            <PrivateRoute path='/courses/create' component={CreateCourse} />
+            <Route path='/courses/:id' component={CourseDetail} />
+            <Route path='/signin' render={() => <SignIn onUsernameChange={this.onUsernameChange} />} />
+            <Route path='/signup' component={SignUp}/>
+            <Route path='/signout' component={SignOut}/>
+          </Switch>
         </div>
       </BrowserRouter>
     );
