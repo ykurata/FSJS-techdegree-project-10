@@ -5,6 +5,7 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const routes = require('./routes');
+const cors = require('cors');
 
 // variable to enable global error logging
 const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'true';
@@ -48,7 +49,8 @@ app.get('/', (req, res) => {
 // setup CORS
 app.use(function(req, res, next){
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   if (req.method === "OPTIONS") {
     res.header("Access-Control-Allow-Methods", "PUT,POST,DELETE");
     return res.status(200).json({});
@@ -56,6 +58,7 @@ app.use(function(req, res, next){
   next();
 });
 
+app.use(cors());
 
 // setup api routes
 app.use('/api', routes);

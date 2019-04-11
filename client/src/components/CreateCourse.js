@@ -7,7 +7,7 @@ class CreateCourse extends Component {
   constructor() {
     super();
     this.state = {
-      username: '',
+      user: '',
       title: '',
       description: '',
       estimatedTime: '',
@@ -22,10 +22,40 @@ class CreateCourse extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    const { title, description, estimatedTime, materialsNeeded } = this.state;
-    axios.post('/api/courses/', { title, description, estimatedTime, materialsNeeded })
+    // const { title, description, estimatedTime, materialsNeeded } = this.state;
+
+    const firstName = window.localStorage.getItem('firstName');
+    const lastName = window.localStorage.getItem('lastName');
+    const emailAddress = window.localStorage.getItem('emailAddress');
+    const password = window.localStorage.getItem('password');
+    const user = window.localStorage.getItem('user');
+
+    const authHeader = {
+      username: emailAddress,
+      password: password
+    }
+    const newCourse = {
+      user: user._id,
+      title: this.state.title,
+      description: this.state.description,
+      estimatedTime: this.state.estimatedTime,
+      materialsNeeded: this.state.materialsNeeded,
+    };
+
+    axios({
+      method: "post",
+      url: "/api/courses",
+      auth: {
+        username: emailAddress,
+        password: password
+      },
+      data: newCourse
+    })
+
+    // axios.post('/api/courses', { auth: authHeader }, newCourse )
     .then(response => {
-      console.log(response);
+      // console.log(response.data);
+      // console.log("Successfully created!");
       window.location.href = '/';
     })
     .catch(error => {
@@ -42,7 +72,13 @@ class CreateCourse extends Component {
           errorMessage: ''
         });
       }
+      // console.log(emailAddress);
+      // console.log(password);
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
       console.log("There is an error", error);
+      // console.log(window.localStorage.getItem('emailAddress'));
     });
   }
 

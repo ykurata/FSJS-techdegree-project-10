@@ -20,21 +20,6 @@ class SignIn extends Component {
     this.setState({ password: e.target.value });
   }
 
-  // validation = e => {
-  //   if (this.state.emailAddress === '') {
-  //     this.setState({
-  //       errorMessage: "Email Address is required"
-  //     });
-  //   } else if (this.state.password === '') {
-  //     this.setState({
-  //       errorMessage: "Password is required"
-  //     });
-  //   } else {
-  //     this.setState({
-  //       errorMessage: ''
-  //     })
-  //   }
-  // }
 
   handleSubmit = e => {
     e.preventDefault();
@@ -45,13 +30,12 @@ class SignIn extends Component {
     }
     axios.get('/api/users', { auth: authHeader } )
     .then(response => {
-      this.setState({
-        loggedIn: true,
-        username: response.data.firstName
-      });
+      console.log("You logged in!");
       window.localStorage.setItem('user', response.data);
       window.localStorage.setItem('firstName', response.data.firstName);
       window.localStorage.setItem('lastName', response.data.lastName);
+      window.localStorage.setItem('emailAddress', response.data.emailAddress);
+      window.localStorage.setItem('password', this.state.password);
       window.location.href = '/';
     })
     .catch(error => {
