@@ -94,16 +94,11 @@ router.post('/users', function(req, res, next){
 // Route for listing all courses
 router.get('/courses', function(req, res, next){
   Course.find({})
-      .populate('user')
+      .populate('user')   // populate User model into Course model
       .exec(function(err, courses){
         if(err) return next(err);
         res.json(courses);
       });
-
-  // Course.find(function(err, courses){
-  //   if (err) return next(err);
-  //   res.json(courses);
-  // });
 });
 
 
@@ -133,16 +128,11 @@ router.post('/courses', authenticateUser, function(req, res, next){
 // Route for getting a specific course
 router.get('/courses/:id', function(req, res, next){
   Course.findById({ "_id" : req.params.id })
-        .populate('user')
+        .populate('user')         // populate User model into Course model
         .exec(function(err, course) {
           if (err) next(err);
           res.json(course);
         })
-
-  // Course.findById(req.params.id, function(err, course){
-  //   if (err) return next(err);
-  //   res.json(course);
-  // });
 });
 
 
