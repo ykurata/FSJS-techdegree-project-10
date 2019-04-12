@@ -9,31 +9,38 @@ class CourseDetail extends Component {
     super(props);
 
     this.state = {
-      course: []
+      course: [],
+      user: [],
     }
   }
+
 
   componentDidMount(){
     axios.get(`/api/courses/${this.props.match.params.id}`)
       .then(response => {
         this.setState({
           course: response.data,
+          user: response.data.user[0]
         });
       })
       .catch(error => {
         console.log("Error fetching and parsing data", error);
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
       });
   }
 
   render() {
-    const user = window.localStorage.getItem('user')
+    const loggedInuser = window.localStorage.getItem('user')
+    const { course, user } = this.state;
     return (
       <div>
         <div className="actions--bar">
           <div className="bounds">
             <div className="grid-100">
               {
-                (user)
+                (loggedInuser)
                 ? <span>
                     <NavLink to='' className="button" >Update Course</NavLink>
                     <NavLink to='' className="button" >Delete Course</NavLink>
@@ -48,11 +55,11 @@ class CourseDetail extends Component {
           <div className="grid-66">
             <div className="course--header">
               <h4 className="course--label">Course</h4>
-              <h3 className="course--title">{this.state.course.title}</h3>
-              <p className="user--name">By {this.state.course.user}</p>
+              <h3 className="course--title">{course.title}</h3>
+              <p className="user--name">By {user.firstName} {user.lastName}</p>
             </div>
             <div className="course--description">
-              <p>{this.state.course.description}</p>
+              <p>{course.description}</p>
             </div>
           </div>
           <div className="grid-25 grid-right">
@@ -60,12 +67,12 @@ class CourseDetail extends Component {
               <ul className="course--stats--list">
                 <li className="course--stats--list--item">
                   <h4>Estimated Time</h4>
-                  <h3>{this.state.course.estimatedTime}</h3>
+                  <h3>{course.estimatedTime}</h3>
                 </li>
                 <li className="course--stats--list--item">
                   <h4>Materials Needed</h4>
                     <ul>
-                      <li>{this.state.course.materialsNeeded}</li>
+                      <li>{course.materialsNeeded}</li>
                     </ul>
                 </li>
               </ul>

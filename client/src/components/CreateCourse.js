@@ -23,17 +23,10 @@ class CreateCourse extends Component {
   onSubmit = e => {
     e.preventDefault();
     // const { title, description, estimatedTime, materialsNeeded } = this.state;
-
-    const firstName = window.localStorage.getItem('firstName');
-    const lastName = window.localStorage.getItem('lastName');
     const emailAddress = window.localStorage.getItem('emailAddress');
     const password = window.localStorage.getItem('password');
     const user = window.localStorage.getItem('user');
 
-    const authHeader = {
-      username: emailAddress,
-      password: password
-    }
     const newCourse = {
       user: user._id,
       title: this.state.title,
