@@ -32,7 +32,7 @@ class CourseDetail extends Component {
   }
 
   render() {
-    const loggedInuser = window.localStorage.getItem('user')
+    const emailAddress = window.localStorage.getItem('emailAddress');
     const { course, user } = this.state;
     return (
       <div>
@@ -40,7 +40,7 @@ class CourseDetail extends Component {
           <div className="bounds">
             <div className="grid-100">
               {
-                (loggedInuser)
+                (emailAddress === user.emailAddress)
                 ? <span>
                     <NavLink to='' className="button" >Update Course</NavLink>
                     <NavLink to='' className="button" >Delete Course</NavLink>

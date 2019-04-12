@@ -45,19 +45,6 @@ const authenticateUser = (req, res, next) => {
   }
 }
 
-// router.param('id', function(req, res, next, id){
-//   User.findById(id, function(err, user) {
-//     if (err) {
-//       next(err);
-//     } else if (user) {
-//       req.user = user;
-//       next();
-//     } else {
-//       next(new Error('failed to load user'));
-//     }
-//   })
-// })
-
 
 // Route that returns the current authenticated user
 router.get('/users', authenticateUser, (req, res) => {
@@ -94,7 +81,7 @@ router.post('/users', function(req, res, next){
 // Route for listing all courses
 router.get('/courses', function(req, res, next){
   Course.find({})
-      .populate('user')   // populate User model into Course model
+      .populate('user')   // populate User model inside Course model
       .exec(function(err, courses){
         if(err) return next(err);
         res.json(courses);
@@ -128,7 +115,7 @@ router.post('/courses', authenticateUser, function(req, res, next){
 // Route for getting a specific course
 router.get('/courses/:id', function(req, res, next){
   Course.findById({ "_id" : req.params.id })
-        .populate('user')         // populate User model into Course model
+        .populate('user')         // populate User model inside Course model
         .exec(function(err, course) {
           if (err) next(err);
           res.json(course);
