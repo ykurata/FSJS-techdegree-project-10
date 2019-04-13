@@ -9,6 +9,7 @@ class UpdateCourse extends Component {
 
     this.state = {
       user: '',
+      course: [],
       title: '',
       description: '',
       estimatedTime: '',
@@ -68,10 +69,12 @@ class UpdateCourse extends Component {
     });
   }
 
+  // Get a existing data from mongodb
   componentDidMount(){
     axios.get(`/api/courses/${this.props.match.params.id}`)
       .then(response => {
         this.setState({
+          course: response.data,
           title: response.data.title,
           description: response.data.description,
           estimatedTime: response.data.estimatedTime,
@@ -89,7 +92,7 @@ class UpdateCourse extends Component {
   render() {
     const firstName = window.localStorage.getItem('firstName');
     const lastName = window.localStorage.getItem('lastName');
-    const { title, description, estimatedTime, materialsNeeded } = this.state;
+    const { course, title, description, estimatedTime, materialsNeeded } = this.state;
 
     return (
       <div className="bounds course--detail">
@@ -172,7 +175,7 @@ class UpdateCourse extends Component {
             </div>
             <div className="grid-100 pad-bottom">
               <button className="button" type="submit">Update Course</button>
-              <NavLink to='/'><button className="button button-secondary">Cancel</button></NavLink>
+              <NavLink to={`/courses/${course._id}`}><button className="button button-secondary">Cancel</button></NavLink>
             </div>
           </form>
         </div>
