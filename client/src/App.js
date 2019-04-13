@@ -10,6 +10,7 @@ import './App.css';
 import Courses from './components/Courses';
 import CourseDetail from './components/CourseDetail';
 import CreateCourse from './components/CreateCourse';
+import UpdateCourse from './components/UpdateCourse';
 import Header from './components/Header';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
@@ -28,6 +29,9 @@ class App extends Component {
             <Route exact path='/' component={Courses} />
 
             <PrivateRoute path='/courses/create' component={CreateCourse} />
+
+            <PrivateRoute path='/courses/:id/update' component={UpdateCourse} />
+
             <Route path='/courses/:id' component={CourseDetail} />
             <Route path='/signin' render={() => <SignIn onUsernameChange={this.onUsernameChange} />} />
             <Route path='/signup' component={SignUp}/>

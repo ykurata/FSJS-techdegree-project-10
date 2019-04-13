@@ -14,7 +14,6 @@ class CourseDetail extends Component {
     }
   }
 
-
   componentDidMount(){
     axios.get(`/api/courses/${this.props.match.params.id}`)
       .then(response => {
@@ -42,7 +41,7 @@ class CourseDetail extends Component {
               {
                 (emailAddress === user.emailAddress)
                 ? <span>
-                    <NavLink to='' className="button" >Update Course</NavLink>
+                    <NavLink to={`/courses/${course._id}/update`} className="button" >Update Course</NavLink>
                     <NavLink to='' className="button" >Delete Course</NavLink>
                     <NavLink to="/" className="button button-secondary">Return to List</NavLink>
                   </span>

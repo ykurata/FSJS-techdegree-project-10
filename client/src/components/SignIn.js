@@ -53,6 +53,9 @@ class SignIn extends Component {
         });
       }
       console.log("Error loggin please try again", error);
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
     });
   }
 

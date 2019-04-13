@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+
 import { NavLink } from 'react-router-dom';
 
+class UpdateCourse extends Component {
+  constructor(props) {
+    super(props);
 
-class CreateCourse extends Component {
-  constructor() {
-    super();
     this.state = {
       user: '',
       title: '',
@@ -22,12 +23,11 @@ class CreateCourse extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    // const { title, description, estimatedTime, materialsNeeded } = this.state;
     const emailAddress = window.localStorage.getItem('emailAddress');
     const password = window.localStorage.getItem('password');
     const user = window.localStorage.getItem('user');
 
-    const newCourse = {
+    const updatedCourse = {
       user: user._id,
       title: this.state.title,
       description: this.state.description,
@@ -36,13 +36,13 @@ class CreateCourse extends Component {
     };
 
     axios({
-      method: "post",
-      url: "/api/courses",
+      method: "put",
+      url: `/api/courses/${this.props.match.params.id}`,
       auth: {
         username: emailAddress,
         password: password
       },
-      data: newCourse
+      data: updatedCourse
     })
     .then(response => {
       window.location.href = '/';
@@ -68,6 +68,24 @@ class CreateCourse extends Component {
     });
   }
 
+  componentDidMount(){
+    axios.get(`/api/courses/${this.props.match.params.id}`)
+      .then(response => {
+        this.setState({
+          title: response.data.title,
+          description: response.data.description,
+          estimatedTime: response.data.estimatedTime,
+          materialsNeeded: response.data.materialsNeeded
+        });
+      })
+      .catch(error => {
+        console.log("Error fetching and parsing data", error);
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      });
+  }
+
   render() {
     const firstName = window.localStorage.getItem('firstName');
     const lastName = window.localStorage.getItem('lastName');
@@ -75,7 +93,7 @@ class CreateCourse extends Component {
 
     return (
       <div className="bounds course--detail">
-        <h1>Create Course</h1>
+        <h1>Update Course</h1>
         <div>
           {
             (this.state.errorMessage.length)
@@ -153,7 +171,7 @@ class CreateCourse extends Component {
               </div>
             </div>
             <div className="grid-100 pad-bottom">
-              <button className="button" type="submit">Create Course</button>
+              <button className="button" type="submit">Update Course</button>
               <NavLink to='/'><button className="button button-secondary">Cancel</button></NavLink>
             </div>
           </form>
@@ -161,7 +179,6 @@ class CreateCourse extends Component {
       </div>
     );
   }
-
 }
 
-export default CreateCourse;
+export default UpdateCourse;
