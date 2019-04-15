@@ -1,4 +1,4 @@
-import React,{ Component }  from 'react';
+import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 
@@ -60,13 +60,16 @@ class SignIn extends Component {
   }
 
   render() {
+    const divStyle = {
+      color: 'red',
+    }
     return (
       <div className="bounds">
         <div className="grid-33 centered signin">
           <h1>Sign In</h1>
           <div>
             <form onSubmit={this.handleSubmit}>
-              <div>
+              <div style={divStyle}>
                 {this.state.errorMessage}
               </div>
               <div>
