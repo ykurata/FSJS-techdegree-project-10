@@ -46,7 +46,7 @@ class UpdateCourse extends Component {
       data: updatedCourse
     })
     .then(response => {
-      window.location.href = '/';
+      window.location.href = `/courses/${this.props.match.params.id}`;
     })
     .catch(error => {
       if (this.state.title === '') {

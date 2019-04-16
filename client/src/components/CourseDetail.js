@@ -30,8 +30,26 @@ class CourseDetail extends Component {
       });
   }
 
-  render() {
+
+  handleDelete = () => {
     const emailAddress = window.localStorage.getItem('emailAddress');
+    const password = window.localStorage.getItem('password');
+    const authHeader = {
+      username: emailAddress,
+      password: password
+    }
+
+    axios.delete(`/api/courses/${this.props.match.params.id}`, { auth: authHeader })
+      .then(response => {
+        window.location.href = '/';
+      })
+      .catch(error => {
+        console.log("Error deleting a data", error);
+      });
+  }
+
+  render() {
+    const userId = window.localStorage.getItem('id');
     const { course, user } = this.state;
     return (
       <div>
@@ -39,10 +57,10 @@ class CourseDetail extends Component {
           <div className="bounds">
             <div className="grid-100">
               {
-                (emailAddress === user.emailAddress)
+                (userId === user._id)
                 ? <span>
                     <NavLink to={`/courses/${course._id}/update`} className="button" >Update Course</NavLink>
-                    <NavLink to='' className="button" >Delete Course</NavLink>
+                    <button onClick={this.handleDelete} className="button" >Delete Course</button>
                     <NavLink to="/" className="button button-secondary">Return to List</NavLink>
                   </span>
                 : <NavLink to="/" className="button button-secondary">Return to List</NavLink>

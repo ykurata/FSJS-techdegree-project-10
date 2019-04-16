@@ -32,6 +32,7 @@ class SignIn extends Component {
     .then(response => {
       console.log("You logged in!");
       window.localStorage.setItem('user', response.data);
+      window.localStorage.setItem('id', response.data._id);
       window.localStorage.setItem('firstName', response.data.firstName);
       window.localStorage.setItem('lastName', response.data.lastName);
       window.localStorage.setItem('emailAddress', response.data.emailAddress);
