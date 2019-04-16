@@ -40,32 +40,13 @@ class SignUp extends Component {
         window.location.href = '/';
       })
       .catch(error => {
-        if (firstName === '') {
-          this.setState({
-            errorMessage: "Please provide your first name."
-          });
-        } else if (lastName === '') {
-          this.setState({
-            errorMessage: "Please provide your last name."
-          });
-        } else if (emailAddress === '') {
-          this.setState({
-            errorMessage: "Please provide your Email address."
-          });
-        } else if (password === '') {
-          this.setState({
-            errorMessage: "Please provide password."
-          });
-        } else {
-          this.setState({
-            errorMessage: "Please try again!"
-          });
-        }
-        console.log("Error loggin please try again", error);
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
+        this.setState({
+          errorMessage: error.response.data.message
+        });
       });
+      // console.log(error.response.data);
+      // console.log(error.response.status);
+      // console.log(error.response.headers);
     }
   }
 
