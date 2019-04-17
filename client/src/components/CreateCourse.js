@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 
-
 class CreateCourse extends Component {
   constructor() {
     super();
@@ -47,23 +46,12 @@ class CreateCourse extends Component {
       window.location.href = '/';
     })
     .catch(error => {
-      if (this.state.title === '') {
         this.setState({
-          errorMessage: 'Please provide a value for "Title"'
-        });
-      } else if (this.state.description === '') {
-        this.setState({
-          errorMessage: 'Please provide a value for "Description"'
-        });
-      } else {
-        this.setState({
-          errorMessage: ''
-        });
-      }
-      console.log(error.response.data);
-      console.log(error.response.status);
-      console.log(error.response.headers);
-      console.log("There is an error", error);
+          errorMessage: error.response.data.message
+        })
+      // console.log(error.response.data);
+      // console.log(error.response.status);
+      // console.log(error.response.headers);
     });
   }
 

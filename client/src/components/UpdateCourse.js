@@ -49,23 +49,12 @@ class UpdateCourse extends Component {
       window.location.href = `/courses/${this.props.match.params.id}`;
     })
     .catch(error => {
-      if (this.state.title === '') {
-        this.setState({
-          errorMessage: 'Please provide a value for "Title"'
-        });
-      } else if (this.state.description === '') {
-        this.setState({
-          errorMessage: 'Please provide a value for "Description"'
-        });
-      } else {
-        this.setState({
-          errorMessage: ''
-        });
-      }
-      console.log(error.response.data);
-      console.log(error.response.status);
-      console.log(error.response.headers);
-      console.log("There is an error", error);
+      this.setState({
+        errorMessage: error.response.data.message
+      });
+      // console.log(error.response.data);
+      // console.log(error.response.status);
+      // console.log(error.response.headers);
     });
   }
 

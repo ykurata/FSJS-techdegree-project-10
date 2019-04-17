@@ -53,18 +53,24 @@ class SignUp extends Component {
 
 
   render() {
-    const divStyle = {
-      color: 'red',
-    }
     return (
       <div className="bounds">
         <div className="grid-33 centered signin">
           <h1>Sign Up</h1>
           <div>
             <form onSubmit={this.onSubmit}>
-              <div style={divStyle}>
-                {this.state.errorMessage}
-              </div>
+              {
+                (this.state.errorMessage.length)
+                ? <div>
+                    <h2 className="validation--errors--label">Validation errors</h2>
+                    <div className="validation-errors">
+                      <ul>
+                        <li>{this.state.errorMessage}</li>
+                      </ul>
+                    </div>
+                  </div>
+                : <div></div>
+              }
               <div>
                 <input
                   id="firstName"

@@ -131,10 +131,16 @@ router.put('/courses/:id', authenticateUser, function(req, res, next){
     course.description = req.body.description;
     course.estimatedTime = req.body.estimatedTime;
     course.materialsNeeded = req.body.materialsNeeded;
-    course.save(req.body, function(err){
-      if (err) return next(err);
-      res.send(204);
-    });
+    if (course.title && course.description) {
+      course.save(function(err, course){
+        if (err) return next(err);
+        res.send(204);
+      });
+    } else {
+      const err = new Error("Title and description are required.");
+      err.status =400;
+      next(err);
+    }
   });
 });
 

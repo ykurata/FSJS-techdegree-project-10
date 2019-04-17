@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
 import { NavLink } from 'react-router-dom';
+
+const ReactMarkdown = require('react-markdown')
+
 
 class CourseDetail extends Component {
 
@@ -76,7 +78,7 @@ class CourseDetail extends Component {
               <p className="user--name">By {user.firstName} {user.lastName}</p>
             </div>
             <div className="course--description">
-              <p>{course.description}</p>
+              <ReactMarkdown source={course.description} />
             </div>
           </div>
           <div className="grid-25 grid-right">
@@ -89,7 +91,7 @@ class CourseDetail extends Component {
                 <li className="course--stats--list--item">
                   <h4>Materials Needed</h4>
                     <ul>
-                      <li>{course.materialsNeeded}</li>
+                      <ReactMarkdown source={course.materialsNeeded}/>
                     </ul>
                 </li>
               </ul>
