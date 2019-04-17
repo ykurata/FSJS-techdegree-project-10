@@ -4,7 +4,6 @@ import  {
   Route,
   Switch
 } from 'react-router-dom';
-import './App.css';
 
 // import components
 import Courses from './components/Courses';
@@ -15,7 +14,9 @@ import Header from './components/Header';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import SignOut from './components/SignOut';
+import NotFound from './components/NotFound';
 import PrivateRoute from './components/PrivateRoute';
+
 
 
 class App extends Component {
@@ -27,7 +28,7 @@ class App extends Component {
 
           <Switch>
             <Route exact path='/' component={Courses} />
-            
+
             {/* routes require user sigin in  */}
             <PrivateRoute path='/courses/create' component={CreateCourse} />
             <PrivateRoute path='/courses/:id/update' component={UpdateCourse} />
@@ -36,6 +37,7 @@ class App extends Component {
             <Route path='/signin' render={() => <SignIn onUsernameChange={this.onUsernameChange} />} />
             <Route path='/signup' component={SignUp}/>
             <Route path='/signout' component={SignOut}/>
+            <Route component={NotFound} />
           </Switch>
         </div>
       </BrowserRouter>
