@@ -6,7 +6,6 @@ const ReactMarkdown = require('react-markdown')
 
 
 class CourseDetail extends Component {
-
   constructor(props) {
     super(props);
 
@@ -80,6 +79,7 @@ class CourseDetail extends Component {
               <p className="user--name">By {user.firstName} {user.lastName}</p>
             </div>
             <div className="course--description">
+              {/* markdown textarea  */}
               <ReactMarkdown source={course.description} />
             </div>
           </div>
@@ -93,6 +93,7 @@ class CourseDetail extends Component {
                 <li className="course--stats--list--item">
                   <h4>Materials Needed</h4>
                     <ul>
+                      {/* markdown textarea  */}
                       <ReactMarkdown source={course.materialsNeeded}/>
                     </ul>
                 </li>

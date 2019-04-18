@@ -12,7 +12,7 @@ class Courses extends Component {
     }
   }
 
-  // Get a all courses from the REST API
+  // Get all courses from the REST API
   componentDidMount() {
     axios.get('/api/courses')
       .then(response => {
