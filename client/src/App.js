@@ -56,9 +56,14 @@ class App extends Component {
     });
   }
 
+  signOut = () => {
+    window.localStorage.clear();
+    window.location.href = '/';
+  }
+
   render() {
     return (
-      
+
       <BrowserRouter>
         <div>
           <Header />
@@ -73,7 +78,7 @@ class App extends Component {
             <Route path='/courses/:id' component={CourseDetail} />
             <Route path='/signin' render={() => <SignIn signIn={this.signIn} errorValue={this.state.errorMessage} />} />
             <Route path='/signup' component={SignUp}/>
-            <Route path='/signout' component={SignOut}/>
+            <Route path='/signout' render={() => <SignOut signOut={this.signOut}/>} />
             <Route component={NotFound} />
           </Switch>
         </div>

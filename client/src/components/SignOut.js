@@ -1,7 +1,14 @@
-// Sign out function 
-const SignOut = () => {
-  window.localStorage.clear();
-  window.location.href = '/';
+import { Component } from 'react';
+
+
+class SignOut extends Component {
+  componentDidMount() {
+    this.props.signOut();
+  }
+
+  render() {
+    return null
+  }
 }
 
 export default SignOut;
