@@ -1,14 +1,33 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const Header = () => {
-  return (
-    <div className="header">
-      <div className="bounds">
-        <h1 className="header--logo">Courses</h1>
-        <nav><a className="signup" href="sign-up.html">Sign Up</a><a className="signin" href="sign-in.html">Sign In</a></nav>
+  const firstName = window.localStorage.getItem('firstName');
+  const lastName = window.localStorage.getItem('lastName');
+  
+  // if user logged in, display user's first name and last name
+  if (firstName || lastName) {
+    return (
+      <div className="header">
+        <div className="bounds">
+          <h1 className="header--logo">Courses</h1>
+          <nav><span>Welcome {firstName} {lastName}</span><NavLink className="signout" to='/signout'>Sign Out</NavLink></nav>
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className="header">
+        <div className="bounds">
+          <h1 className="header--logo">Courses</h1>
+          <nav>
+            <NavLink to='/signup' className="signup">Sign Up</NavLink>
+            <NavLink to='/signin' className="signin">Sign In</NavLink>
+          </nav>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Header;
