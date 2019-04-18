@@ -81,6 +81,7 @@ class App extends Component {
             <Route path='/signout' render={() => <SignOut signOut={this.signOut}/>} />
             <Route component={NotFound} />
           </Switch>
+
         </div>
       </BrowserRouter>
     );
