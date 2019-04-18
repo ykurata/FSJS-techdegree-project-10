@@ -18,7 +18,6 @@ import SignOut from './components/SignOut';
 import NotFound from './components/NotFound';
 import PrivateRoute from './components/PrivateRoute';
 
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -47,6 +46,7 @@ class App extends Component {
       window.location.href = '/';
     })
     .catch(error => {
+
         this.setState({
           errorMessage: error.response.data.message
         });
@@ -58,6 +58,7 @@ class App extends Component {
 
   render() {
     return (
+      
       <BrowserRouter>
         <div>
           <Header />

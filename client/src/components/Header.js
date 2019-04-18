@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-
 const Header = () => {
   const firstName = window.localStorage.getItem('firstName');
   const lastName = window.localStorage.getItem('lastName');
