@@ -2,104 +2,86 @@ import React, { Component } from 'react';
 import  {
   BrowserRouter,
   Route,
-
+  Switch
 } from 'react-router-dom';
 import axios from 'axios';
-import './App.css';
 
-// App components
+// import components
 import Courses from './components/Courses';
 import CourseDetail from './components/CourseDetail';
 import CreateCourse from './components/CreateCourse';
+import UpdateCourse from './components/UpdateCourse';
 import Header from './components/Header';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
-
+import SignOut from './components/SignOut';
+import NotFound from './components/NotFound';
+import PrivateRoute from './components/PrivateRoute';
 
 class App extends Component {
-  // Initialize the state
   constructor(props) {
-    super();
+    super(props);
     this.state = {
-      emailAddress: '',
-      password: '',
-      loggedIn: false
+      errorMessage: ''
     }
   }
 
-  handleEmailChange = e => {
-    this.setState({ emailAddress: e.target.value });
-  }
-
-  handlePasswordChange = e => {
-    this.setState({ password: e.target.value });
-  }
-
-  handleSubmit = e => {
-    e.preventDefault();
+  // Sign in method. Passing user email and password to authenticate
+  signIn = (emailAddress, password) => {
     const authHeader = {
-      username: this.state.emailAddress,
-      password: this.state.password
+      username: emailAddress,
+      password: password
     }
+
     axios.get('/api/users', { auth: authHeader } )
     .then(response => {
-      this.setState({ loggedIn: true });
-      console.log(response.data);
-      console.log("You logged in!");
+      // Store user detail in localStorage to keep user loggin in state
+      window.localStorage.setItem('user', response.data);
+      window.localStorage.setItem('id', response.data._id);
+      window.localStorage.setItem('firstName', response.data.firstName);
+      window.localStorage.setItem('lastName', response.data.lastName);
+      window.localStorage.setItem('emailAddress', response.data.emailAddress);
+      window.localStorage.setItem('password', password);
+      window.location.href = '/';
     })
     .catch(error => {
-      console.log("Error fetching and parsing data", error);
+
+        this.setState({
+          errorMessage: error.response.data.message
+        });
+        // console.log(error.response.data);
+        // console.log(error.response.status);
+        // console.log(error.response.headers);
     });
   }
 
-  // componentDidMount(){
-  //   this.getUser();
-  //   axios.get('/api/users', { auth: {
-  //     "username": ,
-  //     "password": "password"
-  //   }})
-  //   .then(response => {
-  //     console.log(response.data);
-  //   })
-  //   .catch(error => {
-  //     console.log("Error fetching and parsing data", error);
-  //   });
-  // }
-
-  // handleChange = (e) => {
-  //   this.setState({ [e.target.id] : e.target.value });
-  // }
-  //
-  //
-  // getUser = () => {
-  //   axios.get('/api/users', { auth: {
-  //     "username": this.state.emailAddress,
-  //     "password": this.state.password
-  //   }})
-  //     .then(response => {
-  //       console.log(response.data);
-  //     })
-  //     .catch(error => {
-  //       console.log("Error fetching and parsing data", error);
-  //     });
-  // }
-
-  // componentDidMount() {
-  //   this.getUser();
-  // }
+  // Sign out method. Clear user detail from localStorage, and Return the course list page
+  signOut = () => {
+    window.localStorage.clear();
+    window.location.href = '/';
+  }
 
   render() {
     return (
+
       <BrowserRouter>
         <div>
           <Header />
-          <Route exact path='/' component={Courses} />
-          <Route path='/courses/:id' component={CourseDetail} />
-          <Route path='/courses/create' component={CreateCourse} />
-          <Route path='/signin' render={() =>
-            <SignIn emailvalue={this.handleEmailChange} passwordvalue={this.handlePasswordChange} onSubmit={this.handleSubmit} />
-          }/>
-          <Route path='/signup' component={SignUp}/>
+
+          <Switch>
+            <Route exact path='/' component={Courses} />
+
+            {/* routes require user sigin in  */}
+            <PrivateRoute path='/courses/create' component={CreateCourse} />
+            <PrivateRoute path='/courses/:id/update' component={UpdateCourse} />
+
+            <Route path='/courses/:id' component={CourseDetail} />
+            <Route path='/signin' render={() => <SignIn signIn={this.signIn} errorValue={this.state.errorMessage} />} />
+            <Route path='/signup' component={SignUp}/>
+            <Route path='/signout' render={() => <SignOut signOut={this.signOut}/>} />
+            <Route component={NotFound} />
+          </Switch>
+
         </div>
       </BrowserRouter>
     );

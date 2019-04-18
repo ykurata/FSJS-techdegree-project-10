@@ -80,10 +80,12 @@ router.post('/users', function(req, res, next){
 
 // Route for listing all courses
 router.get('/courses', function(req, res, next){
-  Course.find(function(err, courses){
-    if (err) return next(err);
-    res.json(courses);
-  });
+  Course.find({})
+      .populate('user')   // populate User model inside Course model
+      .exec(function(err, courses){
+        if(err) return next(err);
+        res.json(courses);
+      });
 });
 
 
@@ -112,10 +114,12 @@ router.post('/courses', authenticateUser, function(req, res, next){
 
 // Route for getting a specific course
 router.get('/courses/:id', function(req, res, next){
-  Course.findById(req.params.id, function(err, course){
-    if (err) return next(err);
-    res.json(course);
-  });
+  Course.findById({ "_id" : req.params.id })
+        .populate('user')         // populate User model inside Course model
+        .exec(function(err, course) {
+          if (err) next(err);
+          res.json(course);
+        })
 });
 
 
@@ -127,10 +131,16 @@ router.put('/courses/:id', authenticateUser, function(req, res, next){
     course.description = req.body.description;
     course.estimatedTime = req.body.estimatedTime;
     course.materialsNeeded = req.body.materialsNeeded;
-    course.save(req.body, function(err){
-      if (err) return next(err);
-      res.send(204);
-    });
+    if (course.title && course.description) {
+      course.save(function(err, course){
+        if (err) return next(err);
+        res.send(204);
+      });
+    } else {
+      const err = new Error("Title and description are required.");
+      err.status =400;
+      next(err);
+    }
   });
 });
 

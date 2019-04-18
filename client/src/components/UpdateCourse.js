@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+
 import { NavLink } from 'react-router-dom';
 
-class CreateCourse extends Component {
-  constructor() {
-    super();
+class UpdateCourse extends Component {
+  constructor(props) {
+    super(props);
+
     this.state = {
       user: '',
+      course: [],
       title: '',
       description: '',
       estimatedTime: '',
@@ -21,12 +24,12 @@ class CreateCourse extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    // Get loggin user detail from localStorage
     const emailAddress = window.localStorage.getItem('emailAddress');
     const password = window.localStorage.getItem('password');
     const user = window.localStorage.getItem('user');
 
-    const newCourse = {
+    // updating course data
+    const updatedCourse = {
       user: user._id,
       title: this.state.title,
       description: this.state.description,
@@ -35,35 +38,55 @@ class CreateCourse extends Component {
     };
 
     axios({
-      method: "post",
-      url: "/api/courses",
+      method: "put",
+      url: `/api/courses/${this.props.match.params.id}`,
       auth: {
         username: emailAddress,
         password: password
       },
-      data: newCourse
+      data: updatedCourse
     })
     .then(response => {
-      window.location.href = '/';
+      window.location.href = `/courses/${this.props.match.params.id}`;  // Back to course detail page
     })
     .catch(error => {
-        this.setState({
-          errorMessage: error.response.data.message
-        })
+      this.setState({
+        errorMessage: error.response.data.message
+      });
       // console.log(error.response.data);
       // console.log(error.response.status);
       // console.log(error.response.headers);
     });
   }
 
+  // Get a existing data from the REST API
+  componentDidMount(){
+    axios.get(`/api/courses/${this.props.match.params.id}`)
+      .then(response => {
+        this.setState({
+          course: response.data,
+          title: response.data.title,
+          description: response.data.description,
+          estimatedTime: response.data.estimatedTime,
+          materialsNeeded: response.data.materialsNeeded
+        });
+      })
+      .catch(error => {
+        console.log("Error fetching and parsing data", error);
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      });
+  }
+
   render() {
     const firstName = window.localStorage.getItem('firstName');
     const lastName = window.localStorage.getItem('lastName');
-    const { title, description, estimatedTime, materialsNeeded } = this.state;
+    const { course, title, description, estimatedTime, materialsNeeded } = this.state;
 
     return (
       <div className="bounds course--detail">
-        <h1>Create Course</h1>
+        <h1>Update Course</h1>
         <div>
           {
             (this.state.errorMessage.length)
@@ -141,15 +164,14 @@ class CreateCourse extends Component {
               </div>
             </div>
             <div className="grid-100 pad-bottom">
-              <button className="button" type="submit">Create Course</button>
-              <NavLink to='/'><button className="button button-secondary">Cancel</button></NavLink>
+              <button className="button" type="submit">Update Course</button>
+              <NavLink to={`/courses/${course._id}`}><button className="button button-secondary">Cancel</button></NavLink>
             </div>
           </form>
         </div>
       </div>
     );
   }
-
 }
 
-export default CreateCourse;
+export default UpdateCourse;
