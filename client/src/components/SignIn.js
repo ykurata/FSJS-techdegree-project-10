@@ -1,63 +1,29 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 
 class SignIn extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       emailAddress: '',
       password: '',
-      errorMessage: ''
     }
   }
 
+  // update emailAddress state
   handleEmailChange = e => {
     this.setState({ emailAddress: e.target.value });
   }
 
+  // update password state
   handlePasswordChange = e => {
     this.setState({ password: e.target.value });
   }
 
-
   handleSubmit = e => {
     e.preventDefault();
-    // this.validation();
-    const authHeader = {
-      username: this.state.emailAddress,
-      password: this.state.password
-    }
-    axios.get('/api/users', { auth: authHeader } )
-    .then(response => {
-      console.log("You logged in!");
-      window.localStorage.setItem('user', response.data);
-      window.localStorage.setItem('id', response.data._id);
-      window.localStorage.setItem('firstName', response.data.firstName);
-      window.localStorage.setItem('lastName', response.data.lastName);
-      window.localStorage.setItem('emailAddress', response.data.emailAddress);
-      window.localStorage.setItem('password', this.state.password);
-      window.location.href = '/';
-    })
-    .catch(error => {
-      if (this.state.emailAddress === "") {
-        this.setState({
-          errorMessage: "Email Address is required"
-        });
-      } else if (this.state.password === "") {
-        this.setState({
-          errorMessage: "Password is required"
-        });
-      } else {
-        this.setState({
-          errorMessage: "Incorrect Email Address or Password"
-        });
-      }
-      console.log("Error loggin please try again", error);
-      console.log(error.response.data);
-      console.log(error.response.status);
-      console.log(error.response.headers);
-    });
+    this.props.signIn(this.state.emailAddress, this.state.password);
   }
 
   render() {
@@ -68,12 +34,12 @@ class SignIn extends Component {
           <div>
             <form onSubmit={this.handleSubmit}>
               {
-                (this.state.errorMessage.length)
+                (this.props.errorValue.length)
                 ? <div>
                     <h2 className="validation--errors--label">Validation errors</h2>
                     <div className="validation-errors">
                       <ul>
-                        <li>{this.state.errorMessage}</li>
+                        <li>{this.props.errorValue}</li>
                       </ul>
                     </div>
                   </div>

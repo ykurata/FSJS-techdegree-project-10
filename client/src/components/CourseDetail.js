@@ -16,6 +16,7 @@ class CourseDetail extends Component {
     }
   }
 
+  // Get a spcific course from the REST API
   componentDidMount(){
     axios.get(`/api/courses/${this.props.match.params.id}`)
       .then(response => {
@@ -33,6 +34,7 @@ class CourseDetail extends Component {
   }
 
 
+  // Delete a specific course
   handleDelete = () => {
     const emailAddress = window.localStorage.getItem('emailAddress');
     const password = window.localStorage.getItem('password');

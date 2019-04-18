@@ -21,6 +21,7 @@ class CreateCourse extends Component {
 
   onSubmit = e => {
     e.preventDefault();
+    // Get loggin user detail from localStorage
     const emailAddress = window.localStorage.getItem('emailAddress');
     const password = window.localStorage.getItem('password');
     const user = window.localStorage.getItem('user');

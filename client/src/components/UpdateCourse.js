@@ -28,6 +28,7 @@ class UpdateCourse extends Component {
     const password = window.localStorage.getItem('password');
     const user = window.localStorage.getItem('user');
 
+    // updating course data
     const updatedCourse = {
       user: user._id,
       title: this.state.title,
@@ -46,7 +47,7 @@ class UpdateCourse extends Component {
       data: updatedCourse
     })
     .then(response => {
-      window.location.href = `/courses/${this.props.match.params.id}`;
+      window.location.href = `/courses/${this.props.match.params.id}`;  // Back to course detail page
     })
     .catch(error => {
       this.setState({
@@ -58,7 +59,7 @@ class UpdateCourse extends Component {
     });
   }
 
-  // Get a existing data from mongodb
+  // Get a existing data from the REST API
   componentDidMount(){
     axios.get(`/api/courses/${this.props.match.params.id}`)
       .then(response => {

@@ -5,6 +5,8 @@ import { NavLink } from 'react-router-dom';
 const Header = () => {
   const firstName = window.localStorage.getItem('firstName');
   const lastName = window.localStorage.getItem('lastName');
+  
+  // if user logged in, display user's first name and last name
   if (firstName || lastName) {
     return (
       <div className="header">
