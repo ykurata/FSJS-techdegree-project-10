@@ -18,6 +18,7 @@
 * Create your React project
   * Use the create-react-app tool to set up and create your React project in a folder named client.
     * To do this, run the command *npx create-react-app client* from the root of your repo.
+NOTE: npx is not a typo — it’s a package runner tool that comes with npm 5.2+.    
 
 * Set up your REST API
   * Add a folder named api to the root of your repo.
