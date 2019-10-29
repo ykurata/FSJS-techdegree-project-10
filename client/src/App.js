@@ -27,22 +27,21 @@ class App extends Component {
   }
 
   // Sign in method. Passing user email and password to authenticate
-  signIn = (email, password) => {
+  signIn = (emailAddress, password) => {
     const authHeader = {
-      username: email,
+      username: emailAddress,
       password: password
     }
 
-    // Save user detail in localStorage
     axios.get('/api/users', { auth: authHeader } )
     .then(response => {
-      // Store user detail in localStorage to keep user logged in
+      // Store user detail in localStorage to keep user loggin in state
       window.localStorage.setItem('user', response.data);
       window.localStorage.setItem('id', response.data._id);
       window.localStorage.setItem('firstName', response.data.firstName);
       window.localStorage.setItem('lastName', response.data.lastName);
       window.localStorage.setItem('emailAddress', response.data.emailAddress);
-      window.localStorage.setItem('password', this.state.password);
+      window.localStorage.setItem('password', password);
       window.location.href = '/';
     })
     .catch(error => {
@@ -55,10 +54,16 @@ class App extends Component {
         // console.log(error.response.headers);
     });
   }
-  
+
+  // Sign out method. Clear user detail from localStorage, and Return the course list page
+  signOut = () => {
+    window.localStorage.clear();
+    window.location.href = '/';
+  }
+
   render() {
     return (
-      
+
       <BrowserRouter>
         <div>
           <Header />
@@ -73,9 +78,10 @@ class App extends Component {
             <Route path='/courses/:id' component={CourseDetail} />
             <Route path='/signin' render={() => <SignIn signIn={this.signIn} errorValue={this.state.errorMessage} />} />
             <Route path='/signup' component={SignUp}/>
-            <Route path='/signout' component={SignOut}/>
+            <Route path='/signout' render={() => <SignOut signOut={this.signOut}/>} />
             <Route component={NotFound} />
           </Switch>
+
         </div>
       </BrowserRouter>
     );

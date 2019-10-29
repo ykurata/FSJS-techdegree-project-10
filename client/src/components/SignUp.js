@@ -15,6 +15,7 @@ class SignUp extends Component {
     }
   }
 
+  // Update user input
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   }
@@ -30,6 +31,7 @@ class SignUp extends Component {
       confirmPassword: confirmPassword
     }
 
+    // Valitation. Check if password and confirm password are same
     if (password !== confirmPassword) {
       this.setState({
         errorMessage: "Password and confrim password didn't match."
@@ -49,8 +51,6 @@ class SignUp extends Component {
       // console.log(error.response.headers);
     }
   }
-
-
 
   render() {
     return (

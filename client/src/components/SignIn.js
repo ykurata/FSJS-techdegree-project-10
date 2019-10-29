@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-// import axios from 'axios';
+import { NavLink } from 'react-router-dom'
+
 
 class SignIn extends Component {
   constructor(props) {
@@ -23,6 +23,7 @@ class SignIn extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    // call signIn method. passing user emailAddress and password to authenticate
     this.props.signIn(this.state.emailAddress, this.state.password);
   }
 
@@ -53,7 +54,8 @@ class SignIn extends Component {
                   className=""
                   placeholder="Email Address"
                   value={this.state.emailAddress}
-                  onChange={this.handleEmailChange} />
+                  onChange={this.handleEmailChange}
+                />
               </div>
                 <div>
                   <input
