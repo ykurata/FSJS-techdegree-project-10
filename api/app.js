@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const routes = require('./routes');
 const cors = require('cors');
+const path = require('path');
 
 // variable to enable global error logging
 const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'true';
@@ -81,6 +82,16 @@ app.use((err, req, res, next) => {
     error: process.env.NODE_ENV === 'production' ? {} : err,
   });
 });
+
+// Serve static assets if in production
+if (process.env.NODE_ENV === 'production') {
+  // Set static folder
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res) => {
+    res.sendFild(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 // set our port
 app.set('port', process.env.PORT || 5000);
