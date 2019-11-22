@@ -60,6 +60,9 @@ app.use(function(req, res, next){
 
 app.use(cors());
 
+// set our port
+app.set('port', process.env.PORT || 5000);
+
 // setup api routes
 app.use('/api', routes);
 
@@ -91,9 +94,6 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFild(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
-
-// set our port
-app.set('port', process.env.PORT || 5000);
 
 // start listening on our port
 const server = app.listen(app.get('port'), () => {
