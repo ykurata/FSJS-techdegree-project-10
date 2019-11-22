@@ -82,6 +82,16 @@ app.use((err, req, res, next) => {
   });
 });
 
+// Serve static assets if in production
+if (process.env.NODE_ENV === 'production') {
+  // Set static folder
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res) => {
+    res.sendFild(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
 // set our port
 app.set('port', process.env.PORT || 5000);
 
