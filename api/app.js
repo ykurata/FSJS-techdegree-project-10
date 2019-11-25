@@ -39,14 +39,6 @@ db.once("open", function(){
   console.log("db connection successful");
 });
 
-// setup a friendly greeting for the root route
-app.get('/', (req, res) => {
-  res.json({
-    message: 'Welcome to the REST API project!',
-  });
-});
-
-
 // setup CORS
 app.use(function(req, res, next){
   res.header("Access-Control-Allow-Origin", "*");
