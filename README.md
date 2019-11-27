@@ -15,6 +15,11 @@
   * run `npm start` and The create-react-app development server should start and open your application into your default browser. If the development server started but it didn't open in the browser, try manually browsing to it at http://localhost:3000/.
 
 
+## Test user
+Email: yasuko@gmail.com
+Password: password
+
+
 ## Project Instructions
 
 * Create your React project
