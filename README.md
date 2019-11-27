@@ -2,15 +2,17 @@
 
 ## How to run this project
 
-* Open a terminal or command window and start your REST API application.
-  * Browse to the api folder and run the command npm start.
+* Open a terminal or command window, abd clone the repository using `git clone https://github.com/ykurata/FSJS-techdegree-project-10.git`
 
-  * Once you've started the REST API application, you can typically just leave the app running in the background.
+* Backend (api)
+  * Go to api directory and install all dependecies by `npm install`
 
-* Open another terminal or command window and start your React application.
-  * Browse to the client folder and run the command npm start.
+  * run `npm start`
+  
+* Frontend (client)  
+  * Open another terminal or command window and go to client directory, install all dependecies by `npm install`
 
-  * The create-react-app development server should start and open your application into your default browser. If the development server started but it didn't open in the browser, try manually browsing to it at http://localhost:3000/.
+  * run `npm start` and The create-react-app development server should start and open your application into your default browser. If the development server started but it didn't open in the browser, try manually browsing to it at http://localhost:3000/.
 
 
 ## Project Instructions
