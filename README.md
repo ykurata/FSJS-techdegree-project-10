@@ -2,7 +2,7 @@
 
 ## How to run this project
 
-* Open a terminal or command window, abd clone the repository using `git clone https://github.com/ykurata/FSJS-techdegree-project-10.git`
+* Open a terminal or command window, and clone the repository using `git clone https://github.com/ykurata/FSJS-techdegree-project-10.git`
 
 * Backend (api)
   * Go to api directory and install all dependecies by `npm install`
